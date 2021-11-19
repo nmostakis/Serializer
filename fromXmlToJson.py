@@ -1,29 +1,42 @@
 import json
-from  classes.collection import FileExtensionError, RootNodeError, my_movie, my_genre, my_collection, my_decade
+from xml.etree.ElementTree import ParseError
+from  classes.collection import FileExtensionError, RootNodeError, XmlContentError, my_movie, my_genre, my_collection, my_decade
 import pathlib
-import defusedxml.ElementTree as ET
+import defusedxml.cElementTree as ET
+from xmlcreator import create_xml, xml_tester
 
 
-def xmljson(xml_import_file, json_parsed_file): 
+
+def xmljson(xml_import_file, json_parsed_file):
     if pathlib.Path(xml_import_file).suffix != ".xml":
         raise FileExtensionError(xml_import_file)
     elif pathlib.Path(json_parsed_file).suffix != ".json":
         raise FileExtensionError(json_parsed_file)
     else:
-        tree = ET.parse(xml_import_file)
-
+        try:
+            tree = ET.parse(xml_import_file)
+        except Exception as ex:
+            raise ParseError(ex)
+        
+        testerxml = create_xml()
+        test_root = testerxml.getroot()
+        
         root = tree.getroot()
+        
+        xml_tester(test_root, root)
+        
+        
         moviestats = {}
         col = my_collection(genre=[])
         for gen in root:
-    
+            
             genr = my_genre(category=gen.attrib["category"], decades=[])
             for decade in gen:
                 dec = my_decade(decade=decade.attrib["years"],movie=[])
                 
                 for movie in decade:
+                
                     mov = my_movie(movie_name=movie.attrib["title"],format=None,year=None,rating=None,description=None, favorite=movie.attrib["favorite"])
-                    
                     for entry in movie:
                         
                         if entry.tag == "format":
@@ -35,8 +48,8 @@ def xmljson(xml_import_file, json_parsed_file):
                         elif entry.tag == "rating":
                             mov.rating = entry.text
                             moviestats[entry.tag]= entry.text
-                        else:
-                            entry.tag = entry.text
+                        elif entry.tag == "description":
+                            mov.description = entry.text
                             moviestats[entry.tag] = entry.text  
                     
                     dec.movie.append(mov.__dict__)

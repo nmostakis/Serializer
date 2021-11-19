@@ -12,7 +12,7 @@
 							"rating": "PG",
 							"favorite": "True",
 							"format": "DVD",
-							"description": null
+							"description": "\n                'Archaeologist and adventurer Indiana Jones \n                is hired by the U.S. government to find the Ark of the \n                Covenant before the Nazis.'\n                "
 						},
 						{
 							"movie_name": "THE KARATE KID",
@@ -20,7 +20,7 @@
 							"rating": "PG",
 							"favorite": "True",
 							"format": "DVD,Online",
-							"description": null
+							"description": "None provided."
 						},
 						{
 							"movie_name": "Back 2 the Future",
@@ -28,7 +28,7 @@
 							"rating": "PG",
 							"favorite": "False",
 							"format": "Blu-ray",
-							"description": null
+							"description": "Marty McFly"
 						}
 					]
 				},
@@ -41,7 +41,7 @@
 							"rating": "PG-13",
 							"favorite": "False",
 							"format": "dvd, digital",
-							"description": null
+							"description": "Two mutants come to a private academy for their kind whose resident superhero team must \n               oppose a terrorist organization with similar powers."
 						},
 						{
 							"movie_name": "Batman Returns",
@@ -49,7 +49,7 @@
 							"rating": "PG13",
 							"favorite": "True",
 							"format": "VHS",
-							"description": null
+							"description": "NA."
 						},
 						{
 							"movie_name": "Reservoir Dogs",
@@ -57,7 +57,7 @@
 							"rating": "R",
 							"favorite": "False",
 							"format": "Online",
-							"description": null
+							"description": "WhAtEvER I Want!!!?!"
 						}
 					]
 				}
@@ -75,7 +75,7 @@
 							"rating": "R",
 							"favorite": "False",
 							"format": "DVD",
-							"description": null
+							"description": "\"\"\"\"\"\"\"\"\""
 						}
 					]
 				},
@@ -88,7 +88,7 @@
 							"rating": "PG13",
 							"favorite": "True",
 							"format": "DVD",
-							"description": null
+							"description": "Funny movie about a funny guy"
 						},
 						{
 							"movie_name": "American Psycho",
@@ -96,7 +96,7 @@
 							"rating": "Unrated",
 							"favorite": "FALSE",
 							"format": "blue-ray",
-							"description": null
+							"description": "psychopathic Bateman"
 						}
 					]
 				}

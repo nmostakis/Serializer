@@ -75,9 +75,9 @@ class XmlContentError(Exception):
     def __init__(self, xml_content, message="content of the XML don't macht the Expected layout") -> None:
         self.massage = message
         self.xml_content = xml_content
-        super().__init__(self.message)
+        super().__init__(message)
         
-class RootNodeError(Exception):
+class RootNodeError(BaseException):
     def __init__(self, node, message="Root node in XML file is not named 'collection'") -> None:
         self.node = node
         self.massage = message
