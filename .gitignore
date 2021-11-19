@@ -48,3 +48,9 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Parsed data
+
+.xml
+.yaml
+.json
+.csv

@@ -1,0 +1,63 @@
+genre:
+- categorie: {category: Action}
+  decade:
+  - decade: {years: 1980s}
+    movie:
+    - description: "\n                'Archaeologist and adventurer Indiana Jones\
+        \ \n                is hired by the U.S. government to find the Ark of the\
+        \ \n                Covenant before the Nazis.'\n                "
+      format: DVD
+      movie_name: {favorite: 'True', title: 'Indiana Jones: The raiders of the lost
+          Ark'}
+      rating: PG
+      year: 1981
+    - description: None provided.
+      format: DVD,Online
+      movie_name: {favorite: 'True', title: THE KARATE KID}
+      rating: PG
+      year: 1984
+    - description: Marty McFly
+      format: Blu-ray
+      movie_name: {favorite: 'False', title: Back 2 the Future}
+      rating: PG
+      year: 1985
+  - decade: {years: 1990s}
+    movie:
+    - description: "Two mutants come to a private academy for their kind whose resident\
+        \ superhero team must \n               oppose a terrorist organization with\
+        \ similar powers."
+      format: dvd, digital
+      movie_name: {favorite: 'False', title: X-Men}
+      rating: PG-13
+      year: 2000
+    - description: NA.
+      format: VHS
+      movie_name: {favorite: 'True', title: Batman Returns}
+      rating: PG13
+      year: 1992
+    - description: WhAtEvER I Want!!!?!
+      format: Online
+      movie_name: {favorite: 'False', title: Reservoir Dogs}
+      rating: R
+      year: 1992
+- categorie: {category: Thriller}
+  decade:
+  - decade: {years: 1970s}
+    movie:
+    - description: '"""""""""'
+      format: DVD
+      movie_name: {favorite: 'False', title: ALIEN}
+      rating: R
+      year: 1979
+  - decade: {years: 1980s}
+    movie:
+    - description: Funny movie about a funny guy
+      format: DVD
+      movie_name: {favorite: 'True', title: Ferris Bueller's Day Off}
+      rating: PG13
+      year: 1986
+    - description: psychopathic Bateman
+      format: blue-ray
+      movie_name: {favorite: 'FALSE', title: American Psycho}
+      rating: Unrated
+      year: 2000
