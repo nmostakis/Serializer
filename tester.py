@@ -4,5 +4,5 @@ from fromXmlToYaml import xmlyaml
 
 
 xmljson("cerial.xml", "parsed.json")
-# xmlyaml("cerial.xml", "parsed.yaml")
-# xmlcsv("cerial.xml", "parsed.csv")
+xmlyaml("cerial.xml", "parsed.yaml")
+xmlcsv("cerial.xml", "parsed.csv")

@@ -54,3 +54,4 @@ Thumbs.db
 *.yaml
 *.json
 *.csv
+*.toml

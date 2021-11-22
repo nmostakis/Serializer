@@ -7,6 +7,7 @@ from xmlcreator import create_xml, xml_tester
 
 
 
+
 def xmljson(xml_import_file, json_parsed_file):
     if pathlib.Path(xml_import_file).suffix != ".xml":
         raise FileExtensionError(xml_import_file)
@@ -23,9 +24,10 @@ def xmljson(xml_import_file, json_parsed_file):
         
         root = tree.getroot()
         
-        xml_tester(test_root, root)
         
-        
+        tested = xml_tester(test_root, root)
+        if tested != True:
+            raise XmlContentError(root)
         moviestats = {}
         col = my_collection(genre=[])
         for gen in root:
@@ -37,6 +39,8 @@ def xmljson(xml_import_file, json_parsed_file):
                 for movie in decade:
                 
                     mov = my_movie(movie_name=movie.attrib["title"],format=None,year=None,rating=None,description=None, favorite=movie.attrib["favorite"])
+                    if mov.movie_name == "":
+                        raise XmlContentError(mov.movie_name)
                     for entry in movie:
                         
                         if entry.tag == "format":
@@ -51,7 +55,8 @@ def xmljson(xml_import_file, json_parsed_file):
                         elif entry.tag == "description":
                             mov.description = entry.text
                             moviestats[entry.tag] = entry.text  
-                    
+                    if mov.rating=="":
+                        raise XmlContentError(mov.rating)
                     dec.movie.append(mov.__dict__)
                     
                     

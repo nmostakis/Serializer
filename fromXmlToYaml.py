@@ -1,7 +1,8 @@
 import ruamel.yaml
 import xml.etree.ElementTree as ET
-from  classes.collection import my_movie, my_genre, my_collection, my_decade, FileExtensionError
+from  classes.collection import my_movie, my_genre, my_collection, my_decade, FileExtensionError, XmlContentError
 import pathlib
+from xmlcreator import create_xml, xml_tester
 
 
 
@@ -14,7 +15,14 @@ def xmlyaml(xml_import_file, yaml_parsed_file):
     else:
         tree = ET.parse(xml_import_file)
 
+        testerxml = create_xml()
+        test_root = testerxml.getroot()
+        
         root = tree.getroot()
+        
+        tested = xml_tester(test_root, root)
+        if tested != True:
+            raise XmlContentError(root)
         moviestats = {}
         col = my_collection(genre=[])
         for gen in root:
@@ -25,7 +33,8 @@ def xmlyaml(xml_import_file, yaml_parsed_file):
                 
                 for movie in decade:
                     mov = my_movie(movie_name=movie.attrib["title"],format=None,year=None,rating=None,description=None, favorite=movie.attrib["favorite"])
-                    
+                    if mov.movie_name == "":
+                        raise XmlContentError(mov.movie_name)
                     for entry in movie:
                         
                         if entry.tag == "format":
@@ -40,7 +49,8 @@ def xmlyaml(xml_import_file, yaml_parsed_file):
                         elif entry.tag == "description":
                             mov.description = entry.text
                             moviestats[entry.tag] = entry.text  
-                    
+                    if mov.rating=="":
+                        raise XmlContentError(mov.rating)
                     dec.movie.append(mov.__dict__)
                     
                     

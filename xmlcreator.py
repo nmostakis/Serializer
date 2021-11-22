@@ -28,11 +28,10 @@ def xml_tester(test_root, root):
             for b1, b2 in zip(a1, a2):
                 if b1.tag == b2.tag:
                     if b1.attrib.keys() == b2.attrib.keys():
-                        print("!OK")
-                
                         for c1, c2 in zip(b1, b2):
                             if c1.tag == c2.tag:
                                 if c1.attrib.keys() == c2.attrib.keys():
-                                    print("ok")
                                     for d1, d2 in zip(c1, c2):
-                                        print(d1.tag, d2.tag)
+                                        if d1.tag == d2.tag:
+                                            return True
+                       
