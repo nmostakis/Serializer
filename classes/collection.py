@@ -72,7 +72,7 @@ class FileExtensionError(Exception):
         super().__init__(self.massage)
         
 class XmlContentError(Exception):
-    def __init__(self, xml_content, message="content of the XML don't macht the Expected layout") -> None:
+    def __init__(self, xml_content, message="XML tags or attribute keys don't match the default form") -> None:
         self.massage = message
         self.xml_content = xml_content
         super().__init__(message)
