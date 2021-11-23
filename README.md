@@ -40,7 +40,7 @@ test.xmlcsv("xmlfile.xml","outputfile.csv")
 
 ```
 
-- xmljson, xmlyaml and xmlcsv functions from the **test module** take exactly 2 parameters.
+- **xmljson**, **xmlyaml** and **xmlcsv** functions from the **test module** take exactly 2 parameters.
     - the first parameter is the file in which you have your **XML** content stored
     - the second parameter is the name of the output file which u want to create
 - once either of those functions are called the parameters are checked to have the correct suffix.
