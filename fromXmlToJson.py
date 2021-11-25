@@ -7,7 +7,7 @@ from xmlcreator import create_xml, xml_tester
 
 
 
-
+##  Nimmmt den xmlpfad als ersten wert und den exportpfad der csv datei als zweiten wert parsed die .xml zu einer .csv datei
 def xmljson(xml_import_file, json_parsed_file):
     if pathlib.Path(xml_import_file).suffix != ".xml":
         raise FileExtensionError(xml_import_file)

@@ -1,9 +1,8 @@
 import defusedxml.ElementTree as ET
 import xml.etree.cElementTree as CT
-import json
-from  classes.collection import FileExtensionError, RootNodeError, XmlContentError, my_movie, my_genre, my_collection, my_decade
 
 
+# erstellt ein element tree object als vorlage für die xml datei die geparsed werden soll
 def create_xml():
     root = CT.Element("collection")
     genres = CT.SubElement(root, "genres")
@@ -22,6 +21,7 @@ def create_xml():
     return tree
 
 
+# testet zwei element tree objekte auf gleichheit der tags und attributes 
 def xml_tester(test_root, root):
     for a1, a2 in zip(test_root, root):
         if a1.tag == a2.tag:

@@ -1,40 +1,40 @@
 from os import error
 
-
+# Klassen sammlung für die einzelnen nodes aus der .xml datei
 class my_movie:
     movie_name: str
     year: int
     rating: float
     favorite: bool
-    format: str
+    # formats: str
     description: str
     
 
     
-    def __init__(self, movie_name:str, year:str, rating:str, favorite:bool, format:str, description:str ) -> None:
+    def __init__(self, movie_name:str, year:int, rating:str, favorite:bool, description:str ) -> None:
         self.movie_name = movie_name
         self.year = year
         self.rating = rating
         self.favorite = favorite
-        self.format = format
+        # self.format = formats
         self.description = description
     
 
-
+# classe für die decade node aus der xml
 class my_decade:
     decade: str
-    movie = {my_movie}
+    movie = [my_movie]
 
-    def __init__(self, movie, decade) -> None:
+    def __init__(self, decade:str, movie:list[my_movie]) -> None:
         self.decade = decade
         self.movie = movie
 
 
 class my_genre:
     category: str
-    decades = {my_decade}
+    decades = [my_decade]
 
-    def __init__(self, category, decades) -> None:
+    def __init__(self, category:str, decades:list[my_decade]) -> None:
         self.category = category
         self.decades = decades
 
@@ -42,7 +42,7 @@ class my_genre:
 class my_collection:
     genre = [my_genre] 
 
-    def __init__(self, genre:str) -> None:
+    def __init__(self, genre:list[my_genre]) -> None:
         self.genre = genre
 
 
@@ -64,9 +64,9 @@ class my_stats:
         self.rating = rating
         self.description = description
         
-        
+
 class FileExtensionError(Exception):
-    def __init__(self, file, massage="File extension does not match required") -> None:
+    def __init__(self, file, massage="File extension of inputfile must be a .xml file") -> None:
         self.file = file
         self.massage = massage
         super().__init__(self.massage)
@@ -83,3 +83,8 @@ class RootNodeError(BaseException):
         self.massage = message
         super().__init__(message)
         
+class ArgumentError(Exception):
+    def __init__(self, args,message="Arguments incorrect. choose between '-in importfile -out outputfile' or '-out outputfile -in importfile") -> None:
+        self.args = args
+        self.message = message
+        super().__init__(message)

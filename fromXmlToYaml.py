@@ -6,7 +6,7 @@ from xmlcreator import create_xml, xml_tester
 
 
 
-
+##  Nimmmt den xmlpfad als ersten wert und den exportpfad der csv datei als zweiten wert parsed die .xml zu einer .yaml datei
 def xmlyaml(xml_import_file, yaml_parsed_file): 
     if pathlib.Path(xml_import_file).suffix != ".xml":
         raise FileExtensionError(xml_import_file)
@@ -19,7 +19,7 @@ def xmlyaml(xml_import_file, yaml_parsed_file):
         test_root = testerxml.getroot()
         
         root = tree.getroot()
-        
+        ##  Nimmmt den xmlpfad als ersten wert und den exportpfad der csv datei als zweiten wert parsed die xml zu einer csv datei
         tested = xml_tester(test_root, root)
         if tested != True:
             raise XmlContentError(root)
@@ -62,5 +62,5 @@ def xmlyaml(xml_import_file, yaml_parsed_file):
         col = col.__dict__
         
         with open(yaml_parsed_file, "w") as parsed:
-            ruamel.yaml.dump(col, parsed)
-
+            
+            ruamel.yaml.dump(col, parsed, default_flow_style=False, indent=4)

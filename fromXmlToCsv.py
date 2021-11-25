@@ -5,7 +5,7 @@ import pathlib
 from xmlcreator import xml_tester, create_xml
 
 
-
+##  Nimmmt den xmlpfad als ersten wert und den exportpfad der csv datei als zweiten wert parsed die .xml zu einer .csv datei
 def xmlcsv(xml_import_file, csv_parsed_file):
     if pathlib.Path(xml_import_file).suffix != ".xml":
         raise FileExtensionError(xml_import_file)
@@ -27,7 +27,7 @@ def xmlcsv(xml_import_file, csv_parsed_file):
             fieldnames=["genre","decade","title","release","favorite","rating","description"]
             parsedWriter = csv.DictWriter(parser, fieldnames=fieldnames, delimiter=";", quoting=csv.QUOTE_ALL)
             parsedWriter.writeheader()
-            for genre in root.iter("genre"):
+            for genre in root.iter("genres"):
                 for decade in genre.iter("decade"):
                     for movie in decade.iter("movie"):
                         mov = my_stats(genre=genre.attrib["category"], decade=decade.attrib["years"], movie_name=movie.attrib["title"], release=None, favorite=movie.attrib["favorite"], rating=None, description=None)
