@@ -1,3 +1,4 @@
+from xml.etree.ElementTree import Element, ElementTree
 import defusedxml.ElementTree as ET
 import xml.etree.cElementTree as CT
 
@@ -22,7 +23,13 @@ def create_xml():
 
 
 # testet zwei element tree objekte auf gleichheit der tags und attributes 
-def xml_tester(test_root, root):
+'''
+description: 
+param: @test_root - Das ist das root-Element vom Tree
+        @root  - ist irgendein anderes root
+return: bool - gibt zurück ob Tag ooder nacht ist
+'''
+def xml_tester(test_root:Element, root:Element) -> bool:
     for a1, a2 in zip(test_root, root):
         if a1.tag == a2.tag:
             for b1, b2 in zip(a1, a2):
