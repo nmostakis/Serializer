@@ -24,13 +24,13 @@ def xmlcsv(xml_import_file, csv_parsed_file):
 
         movie= []
         with open(csv_parsed_file, mode="a", newline='\n') as parser:
-            fieldnames=["genre","decade","title","release","favorite","rating","description"]
+            fieldnames=["genre","decade","title","release","favorite","rating","description","format_text","multiple"]
             parsedWriter = csv.DictWriter(parser, fieldnames=fieldnames, delimiter=";", quoting=csv.QUOTE_ALL)
             parsedWriter.writeheader()
             for genre in root.iter("genres"):
                 for decade in genre.iter("decade"):
                     for movie in decade.iter("movie"):
-                        mov = my_stats(genre=genre.attrib["category"], decade=decade.attrib["years"], movie_name=movie.attrib["title"], release=None, favorite=movie.attrib["favorite"], rating=None, description=None)
+                        mov = my_stats(genre=genre.attrib["category"], decade=decade.attrib["years"], movie_name=movie.attrib["title"], release=None, favorite=movie.attrib["favorite"], rating=None, description=None, format_text=None, multiple=None)
                         if mov.movie_name == "":
                             raise XmlContentError(mov.movie_name)
                         
@@ -48,7 +48,12 @@ def xmlcsv(xml_import_file, csv_parsed_file):
                                 text = text.replace("\t", " ")
                                 text = text.replace("\"", "'")
                                 mov.description = text
+                            
+                            if entry.tag == "format":
+                                mov.multiple = entry.attrib["multiple"]
+                                mov.format_text = entry.text
                         if mov.rating == "":
                             raise XmlContentError(mov.rating)
-                        parsedWriter.writerow({fieldnames[0]:mov.genre, fieldnames[1]:mov.decade, fieldnames[2]:mov.movie_name, fieldnames[3]:mov.release, fieldnames[4]:mov.favorite, fieldnames[5]:mov.rating, fieldnames[6]:mov.description})
+                        parsedWriter.writerow({fieldnames[0]:mov.genre, fieldnames[1]:mov.decade, fieldnames[2]:mov.movie_name, fieldnames[3]:mov.release, fieldnames[4]:mov.favorite, fieldnames[5]:mov.rating, fieldnames[6]:mov.description, fieldnames[7]:mov.format_text,fieldnames[8]:mov.multiple})
 
+#xmlcsv("cerial.xml","parsed.csv")

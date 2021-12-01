@@ -6,19 +6,20 @@ class my_movie:
     year: int
     rating: float
     favorite: bool
-    # formats: str
     description: str
+    format_text: str
+    multiple: str
     
 
     
-    def __init__(self, movie_name:str, year:int, rating:str, favorite:bool, description:str ) -> None:
+    def __init__(self, movie_name:str, year:int, rating:str, favorite:bool, description:str, format_text:str, multiple:str ) -> None:
         self.movie_name = movie_name
         self.year = year
         self.rating = rating
         self.favorite = favorite
-        # self.format = formats
         self.description = description
-    
+        self.format_text = format_text
+        self.multiple = multiple
 
 # classe für die decade node aus der xml
 class my_decade:
@@ -54,8 +55,10 @@ class my_stats:
     favorite: bool
     rating: str
     description: str
+    format_text: str
+    multiple:str
     
-    def __init__(self, genre:str, decade:str, movie_name:str, release:int, favorite:bool, rating:str, description:str) -> None:
+    def __init__(self, genre:str, decade:str, movie_name:str, release:int, favorite:bool, rating:str, description:str, format_text:str, multiple:str) -> None:
         self.genre = genre
         self.decade = decade
         self.movie_name = movie_name
@@ -63,6 +66,8 @@ class my_stats:
         self.favorite = favorite
         self.rating = rating
         self.description = description
+        self.format_text = format_text
+        self.multiple = multiple
         
 
 class FileExtensionError(Exception):

@@ -7,7 +7,7 @@ from xmlcreator import create_xml, xml_tester
 
 
 ##  Nimmmt den xmlpfad als ersten wert und den exportpfad der csv datei als zweiten wert parsed die .xml zu einer .yaml datei
-def xmlyaml(xml_import_file, yaml_parsed_file): 
+def xmlyaml(xml_import_file:str, yaml_parsed_file:str) -> None: 
     if pathlib.Path(xml_import_file).suffix != ".xml":
         raise FileExtensionError(xml_import_file)
     elif pathlib.Path(yaml_parsed_file).suffix != ".yaml":
@@ -21,8 +21,8 @@ def xmlyaml(xml_import_file, yaml_parsed_file):
         root = tree.getroot()
         ##  Nimmmt den xmlpfad als ersten wert und den exportpfad der csv datei als zweiten wert parsed die xml zu einer csv datei
         tested = xml_tester(test_root, root)
-        if tested != True:
-            raise XmlContentError(root)
+        #if tested != True:
+            #raise XmlContentError(root)
         moviestats = {}
         col = my_collection(genre=[])
         for gen in root:
@@ -32,7 +32,7 @@ def xmlyaml(xml_import_file, yaml_parsed_file):
                 dec = my_decade(decade=decade.attrib["years"],movie=[])
                 
                 for movie in decade:
-                    mov = my_movie(movie_name=movie.attrib["title"],format=None,year=None,rating=None,description=None, favorite=movie.attrib["favorite"])
+                    mov = my_movie(movie_name=movie.attrib["title"],format_text=None,multiple=None,year=None,rating=None,description=None, favorite=movie.attrib["favorite"])
                     if mov.movie_name == "":
                         raise XmlContentError(mov.movie_name)
                     for entry in movie:
@@ -49,6 +49,9 @@ def xmlyaml(xml_import_file, yaml_parsed_file):
                         elif entry.tag == "description":
                             mov.description = entry.text
                             moviestats[entry.tag] = entry.text  
+                        elif entry.tag == "format":
+                            mov.format_text = entry.text
+                            mov.multiple = entry.attrib
                     if mov.rating=="":
                         raise XmlContentError(mov.rating)
                     dec.movie.append(mov.__dict__)
