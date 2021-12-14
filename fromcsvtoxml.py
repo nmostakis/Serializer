@@ -10,6 +10,14 @@ listed_decade = []
 listed_movie = []
 
 def create_csvobject_tree(parsed_csv:str) -> object:
+    """[csv dateipfad wird in die funktion übergeben um ein Objekt aus einer Csv datei zu erstellen]
+
+    Args:
+        parsed_csv (str): [Dateipfad der einzulesenden csv Datei]
+
+    Returns:
+        object: [Objekt mit schachtelung von weiteren Objekten nach vorgabe der ursprünglichen XML]
+    """    
     csv.register_dialect("vita", quotechar='"', delimiter=";", quoting=csv.QUOTE_ALL, escapechar="#")
     with open(parsed_csv, "r", encoding="UTF8") as importcsv:
         reader = csv.DictReader(importcsv, dialect="vita")
@@ -61,7 +69,7 @@ def create_csvobject_tree(parsed_csv:str) -> object:
 
 
 
-collection_object = create_csvobject_tree("parsed.csv")
+collection_object = create_csvobject_tree(None)
 
 collection = ET.Element("collection")
 for genre_item in collection_object.genre:

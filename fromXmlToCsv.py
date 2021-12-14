@@ -6,19 +6,35 @@ from xmlcreator import xml_tester, create_xml
 
 
 ##  Nimmmt den xmlpfad als ersten wert und den exportpfad der csv datei als zweiten wert parsed die .xml zu einer .csv datei
-def xmlcsv(xml_import_file, csv_parsed_file):
-    if pathlib.Path(xml_import_file).suffix != ".xml":
-        raise FileExtensionError(xml_import_file)
-    elif pathlib.Path(csv_parsed_file).suffix != ".csv":
-        raise FileExtensionError(csv_parsed_file)
-    else:
+def xmlcsv(xml_import_file:str, csv_parsed_file:str) -> None:
+    """[Konvertiert XML Datei in CSV Datei mit Tags und Attributbezeichnungen der XML als Feldnamen und Text und Attributsinhalte als Tabelleninhalte]
+
+    Args:
+        xml_import_file ([str]): [Pfad und Name der XML Datei]
+        csv_parsed_file ([str]): [Pfad und Name der CSV Datei die aus der XML Datei erstellt werden soll]
+
+    Raises:
+        XmlContentError: [Fehlermeldung falls der Inhalt der XML Datei Fehlerhaft ist oder nicht nach vorgegebenem Format aufgebaut ist]
+    """    
+    file_in = False
+    file_out = False
+    try:
+        if pathlib.Path(xml_import_file).suffix == ".xml":
+            file_in = True
+        if pathlib.Path(csv_parsed_file).suffix == ".csv":
+            file_out = True
+    except Exception as x:
+        print("No valid inputfile found")
+        print("No Valid outputfile found")
+        pass
+        
+    
+    if file_in == True and file_out == True:
         tree = ET.parse(xml_import_file)
-        testerxml = create_xml()
-        test_root = testerxml.getroot()
         
         root = tree.getroot()
         
-        tested = xml_tester(test_root, root)
+        tested = xml_tester(root)
         if tested != True:
             raise XmlContentError(root)
 
@@ -55,5 +71,3 @@ def xmlcsv(xml_import_file, csv_parsed_file):
                         if mov.rating == "":
                             raise XmlContentError(mov.rating)
                         parsedWriter.writerow({fieldnames[0]:mov.genre, fieldnames[1]:mov.decade, fieldnames[2]:mov.movie_name, fieldnames[3]:mov.release, fieldnames[4]:mov.favorite, fieldnames[5]:mov.rating, fieldnames[6]:mov.description, fieldnames[7]:mov.format_text,fieldnames[8]:mov.multiple})
-
-#xmlcsv("cerial.xml","parsed.csv")

@@ -8,24 +8,36 @@ from xmlcreator import create_xml, xml_tester
 
 
 ##  Nimmmt den xmlpfad als ersten wert und den exportpfad der csv datei als zweiten wert parsed die .xml zu einer .csv datei
-def xmljson(xml_import_file, json_parsed_file):
-    if pathlib.Path(xml_import_file).suffix != ".xml":
-        raise FileExtensionError(xml_import_file)
-    elif pathlib.Path(json_parsed_file).suffix != ".json":
-        raise FileExtensionError(json_parsed_file)
-    else:
-        try:
-            tree = ET.parse(xml_import_file)
-        except Exception as ex:
-            raise ParseError(ex)
+def xmljson(xml_import_file:str, json_parsed_file:str) -> None:
+    """[Konvertiert eine XML Datei in ein Objekt und Exportiert dieses in eine JSON Datei]
+
+    Args:
+        xml_import_file (str): [Dateipfad und Name der XML Datei die Konvertiert werden soll]
+        json_parsed_file (str): [Dateipfad und Name der JSON Datei die aus dem Objekt erstellt werden soll]
+
+    Raises:
+        XmlContentError: [Fehlermedung wenn die XML Datei nicht Korrekt Formatiert ist oder nicht der vorgegebenen Form entspricht]
+    """    
+    file_in = True
+    file_out = True
+    try:
+        if pathlib.Path(xml_import_file).suffix != ".xml":
+            print("No valid inputfile found")
+        elif pathlib.Path(json_parsed_file).suffix != ".json":
+            print("No Valid outputfile found")
+    except Exception as x:
+        file_in = False
+        file_out = False
+        pass
         
-        testerxml = create_xml()
-        test_root = testerxml.getroot()
+    
+    if file_in == True and file_out == True:
+        tree = ET.parse(xml_import_file)
         
         root = tree.getroot()
         
         
-        tested = xml_tester(test_root, root)
+        tested = xml_tester(root)
         if tested != True:
             raise XmlContentError(root)
         moviestats = {}
@@ -38,13 +50,14 @@ def xmljson(xml_import_file, json_parsed_file):
                 
                 for movie in decade:
                 
-                    mov = my_movie(movie_name=movie.attrib["title"],format=None,year=None,rating=None,description=None, favorite=movie.attrib["favorite"])
+                    mov = my_movie(movie_name=movie.attrib["title"],year=None,rating=None,description=None, favorite=movie.attrib["favorite"],format_text=None,multiple=None)
                     if mov.movie_name == "":
                         raise XmlContentError(mov.movie_name)
                     for entry in movie:
                         
                         if entry.tag == "format":
-                            mov.format = entry.text
+                            mov.format_text = entry.text
+                            mov.multiple  = entry.attrib
                             moviestats[entry.tag] = entry.text
                         elif entry.tag == "year":
                             mov.year = int(entry.text)

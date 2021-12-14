@@ -1,10 +1,19 @@
+from os import error
+from types import TracebackType
 from xml.etree.ElementTree import Element, ElementTree
 import defusedxml.ElementTree as ET
 import xml.etree.cElementTree as CT
+import sys
+import traceback
 
 
-# erstellt ein element tree object als vorlage für die xml datei die geparsed werden soll
+
 def create_xml() -> Element:
+    """[Erstellt ein XML Element mit vorgaben für die Tags und Attribute der einzelnen Elemente und children der Elemente]
+
+    Returns:
+        Element: [Testobjekt für die XML Tester Funktion]
+    """    
     root = CT.Element("collections")
     genres = CT.SubElement(root, "genres")
     genres.set("category", "")
@@ -22,24 +31,51 @@ def create_xml() -> Element:
     return tree
 
 
-# testet zwei element tree objekte auf gleichheit der tags und attributes 
-'''
-description: 
-param: @test_root - Das ist das root-Element vom Tree
-        @root  - ist irgendein anderes root
-return: bool - gibt zurück ob Tag ooder nacht ist
-'''
-def xml_tester(test_root:Element, root:Element) -> bool:
+ 
+
+def xml_tester(root:Element) -> bool:
+    """[Testet ein XML Elemet Tree auf gleichheit der Tags und Attributsbezeichnungen]
+
+    Args:
+        root (Element): [XML Element Tree der auf Gleichheut mit dem Testelement und Attribuntsbezeichnungen geprüft wird]
+
+    Returns:
+        bool: [Sind Test Element und Vergleichselement gleich gibt die funktion den Wert True zurück, sonst wird der Wert False zurückgegeben]
+    """    
+    test_tree = create_xml()
+    test_root = test_tree.getroot()
     ret = False
-    for a1, a2 in zip(test_root, root):
-        if a1.tag == a2.tag:
-            for b1, b2 in zip(a1, a2):
-                if b1.tag == b2.tag:
-                    if b1.attrib.keys() == b2.attrib.keys():
-                        for c1, c2 in zip(b1, b2):
-                            if c1.tag == c2.tag:
-                                if c1.attrib.keys() == c2.attrib.keys():
-                                    for d1, d2 in zip(c1, c2):
-                                        if d1.tag == d2.tag:
-                                            ret = True
+    
+        
+    if type(root) != type(test_root):
+        print(str(type(root)) + " Is not a RootElementTree Object.")
+    else:            
+        for genres, testgenres in zip(root, test_root):
+            if root.tag != test_root.tag:
+                break
+            elif genres.tag != testgenres.tag:
+                break
+            elif genres.attrib.keys() != testgenres.attrib.keys():
+                break
+            for decade, testdecade in zip(genres, testgenres):
+                if decade.tag != testdecade.tag:
+                    break
+                elif decade.attrib.keys() != testdecade.attrib.keys():
+                    break
+                for movies, testmovies in zip(decade,testdecade):
+                    if movies.tag != testmovies.tag:
+                        break
+                    elif movies.attrib.keys() != testmovies.attrib.keys():
+                        break
+                    for stats, teststats in zip(movies, testmovies):
+                        if stats.tag != teststats.tag:
+                            break
+                        elif stats.attrib.keys() != teststats.attrib.keys():
+                            break
+                        else: 
+                            ret = True
+                            break
+        
     return ret
+
+
